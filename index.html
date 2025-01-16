@@ -150,7 +150,7 @@
             border-bottom: 1px solid #333;
         }
 
-        .navbar a {
+        .navbar button {
             color: #fff;
             text-decoration: none;
             font-size: 16px;
@@ -159,9 +159,11 @@
             background-color: #4caf50;
             border-radius: 8px;
             transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
-        .navbar a:hover {
+        .navbar button:hover {
             background-color: #ff66cc;
             color: #fff;
         }
@@ -226,7 +228,7 @@
 <body>
     <!-- Navigation Bar -->
     <div class="navbar">
-        <a href="#white-paper">White Paper</a>
+        <button onclick="toggleWhitePaper()">View White Paper</button>
         <a href="#presale">Presale</a>
         <a href="#airdrop">Airdrop</a>
         <a href="#social-links">Follow Us</a>
@@ -242,7 +244,6 @@
         <section id="white-paper">
             <h1>DogePumpFun - White Paper</h1>
             <p class="highlight-text">Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.</p>
-            <button class="white-paper-btn" onclick="toggleWhitePaper()">View White Paper</button>
             <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
         </section>
 
