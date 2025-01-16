@@ -4,9 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dogepumpfun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: url('header.jpg') no-repeat center center/cover;
+            height: 400px;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        header h1 {
+            font-size: 3.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.5em;
+        }
+        nav {
+            text-align: center;
+            background: #343a40;
+            padding: 1em 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 2em;
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            margin-bottom: 1em;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        section img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 1em;
+        }
+        footer {
+            background: url('footer.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 2em 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 0.5em 0;
+        }
+        ul li a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 0.8em 1.5em;
+            margin-top: 1em;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bun venit la Dogepumpfun!</h1>
-    <p>Un token inovator pe blockchain-ul Solana.</p>
+    <header>
+        <h1>Dogepumpfun</h1>
+        <p>The next generation token on the Solana blockchain</p>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#presale">Presale & Airdrop</a>
+        <a href="#community">Community</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="about">
+        <h2>About Dogepumpfun</h2>
+        <p>Dogepumpfun is a unique token designed to stabilize Dogecoin and promote staking within the Solana ecosystem. Our mission is to create a thriving ecosystem for our community.</p>
+        <img src="about.jpg" alt="About Dogepumpfun">
+    </section>
+    <section id="presale">
+        <h2>Presale & Airdrop</h2>
+        <p>Get your Dogepumpfun tokens now at a discounted price and participate in our airdrop campaign.</p>
+        <h3>Presale Details</h3>
+        <ul>
+            <li><strong>Presale Wallet:</strong> <code>DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code></li>
+            <li><strong>Price per token:</strong> 0.01 SOL</li>
+            <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
+        </ul>
+        <a href="#" class="btn">Copy Wallet Address</a>
+        <h3>Airdrop Details</h3>
+        <p>Join the airdrop campaign by completing the registration form and following us on social media.</p>
+        <a href="https://example.com/airdrop-registration" class="btn">Register for Airdrop</a>
+        <img src="presale.jpg" alt="Presale and Airdrop">
+    </section>
+    <section id="community">
+        <h2>Join the Community</h2>
+        <p>Stay connected with Dogepumpfun through our social media channels:</p>
+        <ul>
+            <li><a href="https://x.com/dogepumpfuncoin" target="_blank">Twitter</a></li>
+            <li><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></li>
+            <li><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></li>
+        </ul>
+        <img src="community.jpg" alt="Community">
+    </section>
+    <footer>
+        <p>&copy; 2025 Dogepumpfun. All rights reserved.</p>
+    </footer>
 </body>
 </html>
