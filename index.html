@@ -3,170 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DogePumpFan - Stabilizing the Dogecoin market through innovative staking and ecosystem integrations.">
     <title>DogePumpFan - White Paper</title>
     <style>
         /* General styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #0a0a0a; /* Dark background */
+            color: #e0e0e0; /* Light gray text */
+            line-height: 1.6;
         }
 
         h1, h2, h3 {
             text-align: center;
-            color: #4CAF50;
+            color: #ff66cc; /* Neon pink */
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4caf50; /* Green for links */
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #ff66cc; /* Pink on hover */
         }
 
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #1a1a1a; /* Slightly lighter than body */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
 
-        /* White paper section */
-        #white-paper {
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .header {
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        #white-paper h2 {
-            margin-bottom: 15px;
+        .header img {
+            max-width: 100%;
+            border-radius: 12px;
         }
 
-        #white-paper p, #white-paper ul {
-            margin-bottom: 15px;
+        /* White paper and sections */
+        #white-paper, #presale {
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+            border: 1px solid #333;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
-        #white-paper ul {
+        #white-paper img, #presale img {
+            max-width: 100%;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        #white-paper ul, #presale ul {
             list-style: disc;
             margin-left: 20px;
         }
 
-        #white-paper ul li {
-            margin-bottom: 5px;
+        #white-paper ul li, #presale ul li {
+            margin-bottom: 10px;
+            color: #cfcfcf; /* Softer gray for lists */
         }
 
+        /* Buttons */
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            margin: 10px 0;
+            padding: 12px 24px;
             font-size: 16px;
-            text-align: center;
-            color: white;
-            background-color: #4CAF50;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4caf50; /* Green */
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         .btn:hover {
-            background-color: #45a049;
+            background-color: #ff66cc; /* Pink hover */
         }
 
-        /* Social links section */
+        /* Social links */
         #social-links {
             text-align: center;
             margin-top: 30px;
         }
 
-        #social-links a {
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #4CAF50;
-        }
-
-        #social-links a:hover {
-            color: #ff6600;
-        }
-
         #social-links img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        #social-links img:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-top: 1px solid #333;
+        }
+
+        .footer img {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>DogePumpFan - White Paper</h1>
+        <!-- Header Section -->
+        <div class="header">
+            <img src="dogepump-header.jpg" alt="DogePumpFan Header">
+        </div>
+
+        <!-- White Paper Section -->
         <section id="white-paper">
-            <h2>1. Introduction</h2>
-            <p>DogePumpFan is a token designed to stabilize the Dogecoin market through innovative mechanisms that promote organic growth, staking, and reduced volatility. Built on the Solana blockchain, DogePumpFan combines the speed of transactions and cost efficiency with a well-structured economy to deliver tangible benefits to the Dogecoin community.</p>
-
-            <h2>2. The Problem</h2>
-            <p>Dogecoin faces several challenges:</p>
-            <ul>
-                <li>High volatility.</li>
-                <li>Lack of staking mechanisms for passive income.</li>
-                <li>Limited integration with modern blockchain ecosystems.</li>
-            </ul>
-
-            <h2>3. The DogePumpFan Solution</h2>
-            <p>DogePumpFan addresses these issues by:</p>
-            <ul>
-                <li>Offering staking on the Solana blockchain.</li>
-                <li>Implementing an economic model that encourages long-term holding.</li>
-                <li>Integrating seamlessly into modern blockchain ecosystems.</li>
-            </ul>
-
-            <h2>4. Tokenomics</h2>
+            <h1>DogePumpFan - White Paper</h1>
+            <img src="about-image.jpg" alt="About DogePumpFan">
+            <h2>Introduction</h2>
+            <p>DogePumpFan is a token designed to stabilize the Dogecoin market through innovative mechanisms that promote organic growth, staking, and reduced volatility.</p>
+            <img src="extra-image1.jpg" alt="DogePumpFan Innovation">
+            <h2>Tokenomics</h2>
             <ul>
                 <li><strong>Total Supply:</strong> 1 billion tokens.</li>
-                <li><strong>Distribution:</strong></li>
-                <ul>
-                    <li>30% - Presale.</li>
-                    <li>20% - Liquidity on Raydium.</li>
-                    <li>20% - Airdrop.</li>
-                    <li>15% - Staking rewards.</li>
-                    <li>10% - Team and development.</li>
-                    <li>5% - Marketing and partnerships.</li>
-                </ul>
-                <li><strong>Launch Price:</strong> 0.01 SOL/token.</li>
-                <li><strong>Minimum Buy-in:</strong> 1 SOL (100 tokens).</li>
+                <li>30% - Presale</li>
+                <li>20% - Liquidity on Raydium</li>
+                <li>20% - Airdrop</li>
+                <li>15% - Staking rewards</li>
+                <li>10% - Team and development</li>
+                <li>5% - Marketing and partnerships</li>
             </ul>
-
-            <h2>5. Roadmap</h2>
-            <ul>
-                <li><strong>Q1 2025:</strong> Launch presale and airdrop.</li>
-                <li><strong>Q2 2025:</strong> Launch staking and list on Raydium.</li>
-                <li><strong>Q3 2025:</strong> Expand partnerships and integrations.</li>
-                <li><strong>Q4 2025:</strong> Introduce a DAO mechanism.</li>
-            </ul>
-
-            <h2>6. Get Involved</h2>
-            <p>Join our presale and airdrop campaigns:</p>
-            <a href="#presale" class="btn">Presale</a>
-            <a href="#airdrop" class="btn">Airdrop</a>
-
-            <h2>7. Conclusion</h2>
-            <p>DogePumpFan aims to become an essential tool for stabilizing the Dogecoin market. Through innovative mechanisms and community support, DogePumpFan will contribute to the growth and confidence of the Dogecoin ecosystem.</p>
         </section>
 
+        <!-- Presale Section -->
+        <section id="presale">
+            <h2>Presale</h2>
+            <p>Participate in the presale and get DogePumpFan tokens at a discounted rate.</p>
+            <img src="presale-image.jpg" alt="Presale Details">
+            <button class="btn">Join Presale</button>
+        </section>
+
+        <!-- Social Links Section -->
         <section id="social-links">
             <h2>Follow Us</h2>
             <a href="https://t.me/dogepumpfan" target="_blank">
-                <img src="telegram-icon.png" alt="Telegram"> Telegram
+                <img src="telegram-icon.png" alt="Telegram">
             </a>
             <a href="https://x.com/dogepumpfan" target="_blank">
-                <img src="twitter-icon.png" alt="Twitter"> Twitter
+                <img src="twitter-icon.png" alt="Twitter">
             </a>
             <a href="https://discord.gg/eCFFyEsp" target="_blank">
-                <img src="discord-icon.png" alt="Discord"> Discord
+                <img src="discord-icon.png" alt="Discord">
             </a>
         </section>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>© 2025 DogePumpFan. All rights reserved.</p>
+            <img src="footer-image.jpg" alt="Footer Image">
+        </div>
     </div>
 </body>
 </html>
