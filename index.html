@@ -92,12 +92,12 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
 
-        /* Buttons (consistent style) */
-        button, .white-paper-btn {
+        /* Buttons (consistent style for all buttons) */
+        button, .white-paper-btn, .navbar button {
             display: inline-block;
-            margin: 20px auto;
+            margin: 10px;
             padding: 12px 24px;
-            font-size: 16px;
+            font-size: 18px; /* Increased font size */
             font-weight: bold;
             color: #fff;
             background-color: #4caf50;
@@ -108,7 +108,7 @@
             text-align: center;
         }
 
-        button:hover, .white-paper-btn:hover {
+        button:hover, .white-paper-btn:hover, .navbar button:hover {
             background-color: #ff66cc;
         }
 
@@ -148,24 +148,6 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid #333;
-        }
-
-        .navbar button {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 10px 20px;
-            margin: 0 5px;
-            background-color: #4caf50;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .navbar button:hover {
-            background-color: #ff66cc;
-            color: #fff;
         }
 
         .header img, .footer img {
@@ -229,9 +211,9 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <button onclick="toggleWhitePaper()">View White Paper</button>
-        <a href="#presale">Presale</a>
-        <a href="#airdrop">Airdrop</a>
-        <a href="#social-links">Follow Us</a>
+        <button onclick="location.href='#presale'">Presale</button>
+        <button onclick="location.href='#airdrop'">Airdrop</button>
+        <button onclick="location.href='#social-links'">Follow Us</button>
     </div>
 
     <div class="container">
