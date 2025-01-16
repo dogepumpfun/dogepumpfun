@@ -169,6 +169,32 @@
         #social-links a:hover {
             color: #ff66cc;
         }
+
+        .highlight-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px auto;
+            color: #ff66cc;
+        }
+
+        .background-image {
+            background-image: url('extra-image1.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .background-image .highlight-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -186,18 +212,16 @@
             <img src="dogepump-header.jpg" alt="DogePumpFun Header Banner">
         </div>
 
-        <!-- White Paper Section -->
-        <section id="white-paper">
-            <h1>DogePumpFun - White Paper</h1>
-            <img src="extra-image1.jpg" alt="White Paper" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
-            <p>Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.</p>
-            <a href="DogePumpFun-WhitePaper-Viewable.pdf" target="_blank" class="white-paper-btn">View White Paper</a>
+        <!-- White Paper Section with Background Image -->
+        <section id="white-paper" class="background-image">
+            <div class="highlight-text">
+                Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.
+            </div>
         </section>
 
         <!-- Presale Section -->
         <section id="presale">
             <h2>Presale</h2>
-            <img src="extra-image2.jpg" alt="Presale" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
             <p>Participate in the presale and get DogePumpFun tokens at a discounted rate.</p>
             <ul>
                 <li><strong>Presale Wallet:</strong> 
@@ -212,7 +236,6 @@
         <!-- Airdrop Section -->
         <section id="airdrop">
             <h2>Airdrop Campaign</h2>
-            <img src="extra-image3.jpg" alt="Airdrop Rewards" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
             <form id="airdrop-form" onsubmit="sendEmail(event)">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required>
