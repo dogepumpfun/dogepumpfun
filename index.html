@@ -40,82 +40,69 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
 
+        /* Navigation Bar */
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #4caf50;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #ff66cc;
+            color: #fff;
+        }
+
         /* Header and Footer Banners */
         .header img, .footer img {
             width: 100%; /* Imaginile vor ocupa întreaga lățime */
-            height: 120px; /* Înălțimea este forțată să fie micșorată */
+            height: 200px; /* Înălțimea este forțată să fie proporțională */
             object-fit: cover; /* Imaginile vor fi decupate proporțional */
             border-radius: 12px; /* Colțuri rotunjite */
-        }
-
-        /* Section Images */
-        .section-img {
-            display: block;
-            max-width: 100%;
-            height: 200px; /* Înălțimea imaginilor din secțiuni */
-            object-fit: cover; /* Imagini proporționale */
-            margin: 20px auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Social links */
-        #social-links {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .social-item {
-            display: inline-flex;
-            align-items: center;
-            margin: 10px;
-        }
-
-        .social-item img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            transition: transform 0.3s;
-        }
-
-        .social-item img:hover {
-            transform: scale(1.1);
-        }
-
-        .social-item a {
-            color: #4caf50;
-            font-size: 16px;
-            text-decoration: none;
-        }
-
-        .social-item a:hover {
-            color: #ff66cc;
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#white-paper">White Paper</a>
+        <a href="#presale">Presale</a>
+        <a href="#airdrop">Airdrop</a>
+        <a href="#social-links">Follow Us</a>
+    </div>
+
     <div class="container">
         <!-- Header Section -->
         <div class="header">
             <img src="dogepump-header.jpg" alt="DogePumpFun Header Banner">
         </div>
 
-        <!-- About Section -->
-        <section>
-            <h2>About DogePumpFun</h2>
-            <p>DogePumpFun is an ecosystem designed to stabilize Dogecoin and promote staking within the Solana network.</p>
-            <img src="about-image.jpg" alt="About DogePumpFun" class="section-img">
-        </section>
-
-        <!-- Community Section -->
-        <section>
-            <h2>Our Community</h2>
-            <p>Join a thriving community of crypto enthusiasts who are shaping the future of Dogecoin stability.</p>
-            <img src="community-image.jpg" alt="Community Image" class="section-img">
+        <!-- White Paper Section -->
+        <section id="white-paper">
+            <h1>DogePumpFun - White Paper</h1>
+            <p>Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.</p>
+            <a href="DogePumpFun-WhitePaper-Viewable.pdf" target="_blank" class="white-paper-btn">
+                View White Paper
+            </a>
         </section>
 
         <!-- Presale Section -->
-        <section>
+        <section id="presale">
             <h2>Presale</h2>
             <p>Participate in the presale and get DogePumpFun tokens at a discounted rate.</p>
             <ul>
@@ -126,43 +113,39 @@
                 <li><strong>Price per token:</strong> 0.01 SOL</li>
                 <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
             </ul>
-            <img src="presale-image.jpg" alt="Presale Image" class="section-img">
-            <script>
-                function copyToClipboard() {
-                    const address = document.getElementById('wallet-address').innerText;
-                    navigator.clipboard.writeText(address).then(() => {
-                        alert('Wallet address copied to clipboard!');
-                    }).catch(err => {
-                        alert('Failed to copy address: ', err);
-                    });
-                }
-            </script>
         </section>
 
-        <!-- Additional Vision Images -->
-        <section>
-            <h2>Our Vision</h2>
-            <p>Building a better future for Dogecoin stability.</p>
-            <img src="extra-image1.jpg" alt="Vision Image 1" class="section-img">
-            <img src="extra-image2.jpg" alt="Vision Image 2" class="section-img">
-            <img src="extra-image3.jpg" alt="Vision Image 3" class="section-img">
-        </section>
+        <!-- Airdrop Section -->
+        <section id="airdrop">
+            <h2>Airdrop Campaign</h2>
+            <form id="airdrop-form" action="#" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Full Name" required>
 
-        <!-- Social Links Section -->
-        <section id="social-links">
-            <h2>Follow Us</h2>
-            <div class="social-item">
-                <img src="telegram-icon.png" alt="Telegram">
-                <a href="https://t.me/dogepumpfan" target="_blank">https://t.me/dogepumpfan</a>
-            </div>
-            <div class="social-item">
-                <img src="twitter-icon.png" alt="Twitter">
-                <a href="https://x.com/dogepumpfan" target="_blank">https://x.com/dogepumpfan</a>
-            </div>
-            <div class="social-item">
-                <img src="discord-icon.png" alt="Discord">
-                <a href="https://discord.gg/eCFFyEsp" target="_blank">https://discord.gg/eCFFyEsp</a>
-            </div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+
+                <label for="telegram">Telegram Username:</label>
+                <input type="text" id="telegram" name="telegram" placeholder="@YourTelegramUsername" required>
+
+                <label for="wallet">Solana Wallet Address:</label>
+                <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+
+                <h3>Twitter Tasks</h3>
+                <ul>
+                    <li>Follow us on Twitter: <a href="https://twitter.com/dogepumpfan" target="_blank">@DogePumpFan</a></li>
+                    <li>Retweet our pinned post.</li>
+                    <li>Comment on the pinned post and tag 3 friends.</li>
+                </ul>
+
+                <label for="twitter-username">Twitter Username:</label>
+                <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+
+                <label for="tweet-link">Link to Your Comment (with 3 tagged friends):</label>
+                <input type="url" id="tweet-link" name="tweet-link" placeholder="https://twitter.com/your-comment-link" required>
+
+                <button type="submit">Submit</button>
+            </form>
         </section>
 
         <!-- Footer Section -->
