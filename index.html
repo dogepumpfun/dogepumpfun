@@ -3,55 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogePumpFan - White Paper</title>
+    <title>DogePumpFun - Official Website</title>
     <style>
         /* General styles */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0a0a0a; /* Dark background */
-            color: #e0e0e0; /* Light gray text */
+            background-color: #0a0a0a;
+            color: #e0e0e0;
             line-height: 1.6;
         }
 
         h1, h2, h3 {
             text-align: center;
-            color: #ff66cc; /* Neon pink */
+            color: #ff66cc;
             font-weight: bold;
         }
 
         a {
             text-decoration: none;
-            color: #4caf50; /* Green for links */
+            color: #4caf50;
             transition: color 0.3s;
         }
 
         a:hover {
-            color: #ff66cc; /* Pink on hover */
+            color: #ff66cc;
         }
 
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #1a1a1a; /* Slightly lighter than body */
+            background-color: #1a1a1a;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
+        /* Navigation Bar */
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
         }
 
-        .header img {
-            max-width: 100%;
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #4caf50;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #ff66cc;
+            color: #fff;
+        }
+
+        /* Header and Footer Banners */
+        .header img, .footer img {
+            width: 100%;
+            height: auto;
             border-radius: 12px;
         }
 
-        /* White paper and sections */
-        #white-paper, #presale {
+        /* Sections */
+        section {
             padding: 20px;
             background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
             border: 1px solid #333;
@@ -59,40 +84,32 @@
             margin-bottom: 20px;
         }
 
-        #white-paper img, #presale img {
+        section img {
+            display: block;
             max-width: 100%;
-            margin: 20px 0;
+            margin: 20px auto;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
         }
 
-        #white-paper ul, #presale ul {
-            list-style: disc;
-            margin-left: 20px;
-        }
-
-        #white-paper ul li, #presale ul li {
-            margin-bottom: 10px;
-            color: #cfcfcf; /* Softer gray for lists */
-        }
-
-        /* Buttons */
-        .btn {
+        /* White Paper Button */
+        .white-paper-btn {
             display: inline-block;
+            margin: 20px auto;
             padding: 12px 24px;
             font-size: 16px;
             font-weight: bold;
             color: #fff;
-            background-color: #4caf50; /* Green */
+            background-color: #4caf50;
             border: none;
             border-radius: 8px;
-            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
             transition: background-color 0.3s;
-            margin-top: 10px;
         }
 
-        .btn:hover {
-            background-color: #ff66cc; /* Pink hover */
+        .white-paper-btn:hover {
+            background-color: #ff66cc;
         }
 
         /* Social links */
@@ -109,7 +126,7 @@
         }
 
         #social-links img:hover {
-            transform: scale(1.1); /* Slight zoom on hover */
+            transform: scale(1.1);
         }
 
         /* Footer */
@@ -120,46 +137,88 @@
             background-color: #1a1a1a;
             border-top: 1px solid #333;
         }
-
-        .footer img {
-            max-width: 100%;
-            margin-top: 20px;
-            border-radius: 12px;
-        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#white-paper">White Paper</a>
+        <a href="#presale">Presale</a>
+        <a href="#airdrop">Airdrop</a>
+        <a href="#social-links">Social Links</a>
+    </div>
+
     <div class="container">
         <!-- Header Section -->
         <div class="header">
-            <img src="dogepump-header.jpg" alt="DogePumpFan Header">
+            <img src="dogepump-header.jpg" alt="DogePumpFun Header Banner">
         </div>
 
         <!-- White Paper Section -->
         <section id="white-paper">
-            <h1>DogePumpFan - White Paper</h1>
-            <img src="about-image.jpg" alt="About DogePumpFan">
-            <h2>Introduction</h2>
-            <p>DogePumpFan is a token designed to stabilize the Dogecoin market through innovative mechanisms that promote organic growth, staking, and reduced volatility.</p>
-            <img src="extra-image1.jpg" alt="DogePumpFan Innovation">
-            <h2>Tokenomics</h2>
-            <ul>
-                <li><strong>Total Supply:</strong> 1 billion tokens.</li>
-                <li>30% - Presale</li>
-                <li>20% - Liquidity on Raydium</li>
-                <li>20% - Airdrop</li>
-                <li>15% - Staking rewards</li>
-                <li>10% - Team and development</li>
-                <li>5% - Marketing and partnerships</li>
-            </ul>
+            <h1>DogePumpFun - White Paper</h1>
+            <p>Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.</p>
+            <a href="files/DogePumpFun-WhitePaper-Viewable.pdf" target="_blank" class="white-paper-btn">
+                View White Paper
+            </a>
         </section>
 
         <!-- Presale Section -->
         <section id="presale">
             <h2>Presale</h2>
-            <p>Participate in the presale and get DogePumpFan tokens at a discounted rate.</p>
-            <img src="presale-image.jpg" alt="Presale Details">
-            <button class="btn">Join Presale</button>
+            <p>Participate in the presale and get DogePumpFun tokens at a discounted rate.</p>
+            <ul>
+                <li><strong>Presale Wallet:</strong> 
+                    <code id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code>
+                    <button onclick="copyToClipboard()">Copy Wallet Address</button>
+                </li>
+                <li><strong>Price per token:</strong> 0.01 SOL</li>
+                <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
+            </ul>
+            <script>
+                function copyToClipboard() {
+                    const address = document.getElementById('wallet-address').innerText;
+                    navigator.clipboard.writeText(address).then(() => {
+                        alert('Wallet address copied to clipboard!');
+                    }).catch(err => {
+                        alert('Failed to copy address: ', err);
+                    });
+                }
+            </script>
+        </section>
+
+        <!-- Airdrop Section -->
+        <section id="airdrop">
+            <h2>Airdrop Campaign</h2>
+            <p>Join the DogePumpFun airdrop campaign by completing the form below and fulfilling the social media requirements!</p>
+            <form id="airdrop-form" action="#" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+
+                <label for="telegram">Telegram Username:</label>
+                <input type="text" id="telegram" name="telegram" placeholder="@YourTelegramUsername" required>
+
+                <label for="wallet">Solana Wallet Address:</label>
+                <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+
+                <h3>Twitter Tasks</h3>
+                <ul>
+                    <li>Follow us on Twitter: <a href="https://twitter.com/dogepumpfan" target="_blank">@DogePumpFan</a></li>
+                    <li>Retweet our pinned post.</li>
+                    <li>Comment on the pinned post and tag 3 friends.</li>
+                </ul>
+
+                <label for="twitter-username">Twitter Username:</label>
+                <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+
+                <label for="tweet-link">Link to Your Comment (with 3 tagged friends):</label>
+                <input type="url" id="tweet-link" name="tweet-link" placeholder="https://twitter.com/your-comment-link" required>
+
+                <button type="submit">Submit</button>
+            </form>
         </section>
 
         <!-- Social Links Section -->
@@ -178,8 +237,7 @@
 
         <!-- Footer Section -->
         <div class="footer">
-            <p>© 2025 DogePumpFan. All rights reserved.</p>
-            <img src="footer-image.jpg" alt="Footer Image">
+            <img src="footer-image.jpg" alt="DogePumpFun Footer Banner">
         </div>
     </div>
 </body>
