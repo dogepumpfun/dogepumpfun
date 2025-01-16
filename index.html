@@ -43,6 +43,11 @@
                 alert('Failed to copy address:', err);
             });
         }
+
+        function toggleWhitePaper() {
+            const whitePaper = document.getElementById("white-paper-view");
+            whitePaper.style.display = whitePaper.style.display === "none" ? "block" : "none";
+        }
     </script>
     <style>
         body {
@@ -107,6 +112,11 @@
             background-color: #ff66cc;
         }
 
+        .submit-btn {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
         form label {
             display: block;
             margin-top: 10px;
@@ -121,7 +131,7 @@
             border-radius: 5px;
             background-color: #333;
             color: #fff;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         form input:focus {
@@ -199,11 +209,17 @@
             text-align: center;
         }
 
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            margin-top: 20px;
+        .airdrop-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(26, 26, 26, 0.9);
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -226,7 +242,8 @@
         <section id="white-paper">
             <h1>DogePumpFun - White Paper</h1>
             <p class="highlight-text">Discover how DogePumpFun stabilizes the Dogecoin market through innovation and advanced technology.</p>
-            <iframe src="DogePumpFun-WhitePaper-Viewable.pdf"></iframe>
+            <button class="white-paper-btn" onclick="toggleWhitePaper()">View White Paper</button>
+            <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
         </section>
 
         <!-- Presale Section -->
@@ -246,27 +263,29 @@
         <!-- Airdrop Section -->
         <section id="airdrop">
             <h2>Airdrop Campaign</h2>
-            <form id="airdrop-form" onsubmit="sendEmail(event)">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <div class="airdrop-form-container">
+                <form id="airdrop-form" onsubmit="sendEmail(event)">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
 
-                <label for="telegram">Telegram Username:</label>
-                <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
+                    <label for="telegram">Telegram Username:</label>
+                    <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
 
-                <label for="wallet">Solana Wallet Address:</label>
-                <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+                    <label for="wallet">Solana Wallet Address:</label>
+                    <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
 
-                <label for="twitter-username">Twitter Username:</label>
-                <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+                    <label for="twitter-username">Twitter Username:</label>
+                    <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
 
-                <label for="tweet-link">Link to Your Tweet:</label>
-                <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
+                    <label for="tweet-link">Link to Your Tweet:</label>
+                    <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
 
-                <button type="submit">Submit</button>
-            </form>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
         </section>
 
         <!-- Social Links Section -->
