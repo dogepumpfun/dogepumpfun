@@ -14,7 +14,7 @@
         function sendEmail(event) {
             event.preventDefault();
 
-            // Preia valorile din formular
+            // Collect values from the form
             const params = {
                 name: document.getElementById("name").value,
                 email: document.getElementById("email").value,
@@ -24,7 +24,7 @@
                 tweetLink: document.getElementById("tweet-link").value
             };
 
-            // Trimite e-mailul folosind EmailJS
+            // Send email using EmailJS
             emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
                 .then(() => {
                     alert("Airdrop request submitted successfully!");
@@ -84,17 +84,8 @@
             color: #ff66cc;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(26, 26, 26, 0.7);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-        }
-
         section {
-            margin-bottom: 40px; background-color: transparent;
+            margin-bottom: 40px;
             background-color: rgba(26, 26, 26, 0.5);
             padding: 20px;
             border-radius: 12px;
@@ -224,10 +215,6 @@
                 width: 90%;
             }
 
-            .container {
-                padding: 15px;
-            }
-
             section {
                 text-align: center;
             }
@@ -249,7 +236,7 @@
         <button onclick="location.href='#social-links'">Follow Us</button>
     </div>
 
-    <div class="container">
+    <div>
         <!-- White Paper Section -->
         <section id="white-paper">
             <h1>DogePumpFun</h1>
@@ -262,7 +249,7 @@
             <h2>Presale</h2>
             <p class="presale-info">Join the presale to acquire DogePumpFun tokens at a discounted rate. Early investors gain exclusive benefits, staking rewards, and access to a growing ecosystem.</p>
             <ul class="presale-info">
-                <li><strong>Presale Wallet:</strong> 
+                <li><strong>Presale Wallet:</strong>
                     <code id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code>
                     <button onclick="copyToClipboard()">Copy Wallet Address</button>
                 </li>
@@ -310,3 +297,23 @@
                         <img src="twitter-icon.png" alt="Twitter">
                     </a>
                     <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
+                </div>
+                <!-- Telegram -->
+                <div style="text-align: center;">
+                    <a href="https://t.me/dogepumpfan" target="_blank">
+                        <img src="telegram-icon.png" alt="Telegram">
+                    </a>
+                    <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
+                </div>
+                <!-- Discord -->
+                <div style="text-align: center;">
+                    <a href="https://discord.gg/eCFFyEsp" target="_blank">
+                        <img src="discord-icon.png" alt="Discord">
+                    </a>
+                    <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
