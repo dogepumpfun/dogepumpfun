@@ -88,9 +88,16 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(26, 26, 26, 0.9);
+            background-color: rgba(26, 26, 26, 0.7);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        section {
+            margin-bottom: 40px;
+            background-color: rgba(26, 26, 26, 0.5); /* Increase transparency */
+            padding: 20px;
+            border-radius: 12px;
         }
 
         button, .white-paper-btn, .navbar button {
@@ -190,7 +197,7 @@
             flex-direction: column;
             margin: 40px auto;
             padding: 20px;
-            background-color: rgba(26, 26, 26, 0.9);
+            background-color: rgba(26, 26, 26, 0.5); /* Increase transparency */
             border-radius: 10px;
             max-width: 500px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -272,36 +279,4 @@
                     <label for="tweet-link">Link to Your Tweet:</label>
                     <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
 
-                    <button type="submit" class="submit-btn">Submit</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Social Links Section -->
-        <section id="social-links" style="text-align: center; margin-top: 20px;">
-            <h2>Follow Us</h2>
-            <p class="social-description">Stay updated by following us on our social media platforms:</p>
-            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; align-items: center;">
-                <div style="text-align: center;">
-                    <a href="https://twitter.com/dogepumpfan" target="_blank">
-                        <img src="twitter-icon.png" alt="Twitter">
-                    </a>
-                    <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
-                </div>
-                <div style="text-align: center;">
-                    <a href="https://t.me/dogepumpfan" target="_blank">
-                        <img src="telegram-icon.png" alt="Telegram">
-                    </a>
-                    <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
-                </div>
-                <div style="text-align: center;">
-                    <a href="https://discord.gg/eCFFyEsp" target="_blank">
-                        <img src="discord-icon.png" alt="Discord">
-                    </a>
-                    <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
-                </div>
-            </div>
-        </section>
-    </div>
-</body>
-</html>
+                    <button type="submit" class="submit-btn">Submit</button
