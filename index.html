@@ -409,6 +409,44 @@
                 <input type="number" id="amount-to-pay" placeholder="Amount in SOL" />
                 <button onclick="sendSolanaPayment()">Send Payment</button>
             </div>
+<!-- Progress Bar Section -->
+<div style="background: #333; border-radius: 20px; padding: 10px; width: 80%; margin: 20px auto;">
+    <div id="progress-bar" style="background: #4caf50; width: 50%; height: 30px; border-radius: 15px; text-align: center; color: white;">
+        50% Sold
+    </div>
+</div>
+<script>
+    // Update the progress dynamically
+    const soldPercentage = 50; // Replace with a dynamic value if needed
+    document.getElementById("progress-bar").style.width = soldPercentage + "%";
+    document.getElementById("progress-bar").innerText = soldPercentage + "% Sold";
+</script>
+<!-- Timer Section -->
+<div style="text-align: center; margin: 20px auto; color: #e0e0e0;">
+    <h3>Presale Ends In:</h3>
+    <div id="countdown-timer" style="font-size: 1.5rem; font-weight: bold;"></div>
+</div>
+<script>
+    const countdownDate = new Date("2025-01-31T23:59:59").getTime(); // Replace with your presale end date
+    const countdownTimer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown-timer").innerText = 
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        if (distance < 0) {
+            clearInterval(countdownTimer);
+            document.getElementById("countdown-timer").innerText = "Presale Ended";
+        }
+    }, 1000);
+</script>
+
         </div>
         </section>
 
@@ -439,6 +477,19 @@
                 </form>
             </div>
         </section>
+
+<!-- Chatbox -->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/your_unique_id/1'; // Replace 'your_unique_id' with Tawk.to widget ID
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
 
         <!-- Social Links Section -->
         <section id="social-links">
