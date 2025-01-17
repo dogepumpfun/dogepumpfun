@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -197,4 +197,40 @@
         <section id="airdrop">
             <h2>Airdrop Campaign</h2>
             <div class="airdrop-form-container">
-                <form id="airdrop-form" on
+                <form id="airdrop-form" onsubmit="sendEmail(event)">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+                    <label for="telegram">Telegram Username:</label>
+                    <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
+
+                    <label for="wallet">Solana Wallet Address:</label>
+                    <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+
+                    <label for="twitter-username">Twitter Username:</label>
+                    <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+
+                    <label for="tweet-link">Link to Your Tweet:</label>
+                    <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
+
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Social Links Section -->
+        <section id="social-links">
+            <h2>Follow Us</h2>
+            <p class="social-description">Stay updated by following us on our social media platforms:</p>
+            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; align-items: center;">
+                <!-- Twitter -->
+                <div style="text-align: center;">
+                    <a href="https://twitter.com/dogepumpfan" target="_blank">
+                        <img src="twitter-icon.png" alt="Twitter">
+                    </a>
+                    <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
+                </div>
+                <!-- Telegram -->
