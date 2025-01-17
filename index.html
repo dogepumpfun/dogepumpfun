@@ -1,52 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogePumpFun - Official Website</title>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>DogePumpFun - Multi-Wallet Support</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/@solana/web3.js/1.76.0/web3.min.js"></script>
     <script>
-        // Initialize EmailJS
-        (function() {
-            emailjs.init("F21yNHB-KBjU3fCpG"); // Public Key (user_id)
-        })();
+        // Adresa pentru primirea plăților în Solana
+        const solanaPaymentAddress = "BXqvxJo65Z1yCiZPwmMxsdbzCNWzk56zf7TUVCtt2BtS";
 
-        function sendEmail(event) {
-            event.preventDefault();
-
-            // Collect values from the form
-            const params = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                telegram: document.getElementById("telegram").value,
-                wallet: document.getElementById("wallet").value,
-                twitterUsername: document.getElementById("twitter-username").value,
-                tweetLink: document.getElementById("tweet-link").value
-            };
-
-            // Send email using EmailJS
-            emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
-                .then(() => {
-                    alert("Airdrop request submitted successfully!");
-                })
-                .catch((error) => {
-                    console.error("Error sending email:", error);
-                    alert("Failed to submit the airdrop request. Please try again.");
-                });
+        // Conectare Phantom și Solflare (Solana Wallets)
+        async function connectSolanaWallet() {
+            if (window.solana) {
+                try {
+                    const response = await window.solana.connect();
+                    const walletAddress = response.publicKey.toString();
+                    document.getElementById("wallet-address").textContent = Connected Solana Wallet: ${walletAddress};
+                    alert("Solana wallet connected successfully!");
+                } catch (error) {
+                    console.error("Wallet connection rejected:", error);
+                    alert("Failed to connect Solana wallet. Please try again.");
+                }
+            } else {
+                alert("No Solana wallet detected. Please install Phantom or Solflare!");
+            }
         }
 
-        function copyToClipboard() {
-            const address = document.getElementById('wallet-address').innerText;
-            navigator.clipboard.writeText(address).then(() => {
-                alert('Wallet address copied to clipboard!');
-            }).catch(err => {
-                alert('Failed to copy address:', err);
-            });
+        // Conectare MetaMask (compatibil cu Coinbase și Trust Wallet pe EVM)
+        async function connectEVMWallet() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const walletAddress = accounts[0];
+                    document.getElementById("wallet-address").textContent = Connected EVM Wallet: ${walletAddress};
+                    alert("Ethereum-compatible wallet connected successfully!");
+                } catch (error) {
+                    console.error("EVM Wallet connection rejected:", error);
+                    alert("Failed to connect EVM wallet. Please try again.");
+                }
+            } else {
+                alert("No Ethereum-compatible wallet detected. Please install MetaMask, Coinbase Wallet, or Trust Wallet!");
+            }
         }
 
-        function toggleWhitePaper() {
-            const whitePaper = document.getElementById("white-paper-view");
-            whitePaper.style.display = whitePaper.style.display === "none" ? "block" : "none";
+        // Trimiterea unei plăți reale în Solana
+        async function sendSolanaPayment() {
+            if (!window.solana || !window.solana.isConnected) {
+                alert("Please connect your Solana wallet first!");
+                return;
+            }
+
+            try {
+                const amountInSOL = parseFloat(document.getElementById("amount-to-pay").value);
+                if (isNaN(amountInSOL) || amountInSOL <= 0) {
+                    alert("Please enter a valid amount in SOL.");
+                    return;
+                }
+
+                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
+                const fromWallet = window.solana.publicKey;
+                const toWallet = new solanaWeb3.PublicKey(solanaPaymentAddress);
+
+                const transaction = new solanaWeb3.Transaction().add(
+                    solanaWeb3.SystemProgram.transfer({
+                        fromPubkey: fromWallet,
+                        toPubkey: toWallet,
+                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL, // Convert SOL în lamports
+                    })
+                );
+
+                const signature = await window.solana.signAndSendTransaction(transaction);
+                alert(Transaction sent successfully! Signature: ${signature});
+                console.log("Transaction signature:", signature);
+            } catch (error) {
+                console.error("Transaction failed:", error);
+                alert("Transaction failed. Please try again.");
+            }
         }
     </script>
     <style>
@@ -64,232 +94,76 @@
             filter: brightness(1.1);
         }
 
-        h1, h2, h3 {
+        .buy-section {
+            background: rgba(26, 26, 26, 0.9);
+            color: #e0e0e0;
             text-align: center;
-            color: #ff66cc;
-            font-weight: bold;
-        }
-
-        h2, h3 {
-            font-size: 1.6rem;
-        }
-
-        a {
-            text-decoration: none;
-            color: #4caf50;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #ff66cc;
-        }
-
-        section {
-            margin-bottom: 40px;
-            background-color: rgba(26, 26, 26, 0.5);
-            padding: 20px;
+            padding: 40px 20px;
             border-radius: 12px;
-        }
-
-        button, .white-paper-btn, .navbar button {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 24px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #4caf50;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: center;
-        }
-
-        button:hover, .white-paper-btn:hover, .navbar button:hover {
-            background-color: #ff66cc;
-        }
-
-        .submit-btn {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-
-        form label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        form input, form button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-            font-size: 14px;
-        }
-
-        form input:focus {
-            outline: none;
-            border: 2px solid #4caf50;
-        }
-
-        .navbar {
-            background-color: rgba(26, 26, 26, 0.9);
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-
-        #social-links {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #social-links img {
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-        }
-
-        #social-links a {
-            color: #4caf50;
-            text-decoration: none;
-        }
-
-        #social-links a:hover {
-            color: #ff66cc;
-        }
-
-        .highlight-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
             margin: 20px auto;
-            color: #fff;
-        }
-
-        .airdrop-form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(26, 26, 26, 0.5);
-            border-radius: 10px;
-            max-width: 500px;
+            max-width: 800px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        @media (max-width: 768px) {
-            .navbar button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+        .buy-section h2 {
+            font-size: 2.2rem;
+            color: #ff66cc;
+            margin-bottom: 15px;
+        }
 
-            form input, form button {
-                font-size: 14px;
-                padding: 8px;
-            }
+        .buy-section button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-            .airdrop-form-container {
-                padding: 15px;
-                width: 90%;
-            }
+        .buy-section button:hover {
+            background: #ff66cc;
+        }
 
-            section {
-                text-align: center;
-            }
+        .buy-section #wallet-address {
+            margin-top: 20px;
+            font-weight: bold;
+        }
 
-            #social-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+        .buy-section input {
+            padding: 10px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            width: 50%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <button onclick="toggleWhitePaper()">View White Paper</button>
-        <button onclick="location.href='#presale'">Presale</button>
-        <button onclick="location.href='#airdrop'">Airdrop</button>
-        <button onclick="location.href='#social-links'">Follow Us</button>
-    </div>
+    <!-- Section: Buy DogePumpFun -->
+    <section id="buy-dogepumpfan" class="buy-section">
+        <div class="content-wrapper">
+            <h2>Buy DogePumpFun Tokens</h2>
+            <p>Power the Future of Decentralized Gaming and Rewards!</p>
 
-    <div>
-        <!-- White Paper Section -->
-        <section id="white-paper">
-            <h1>DogePumpFun</h1>
-            <p class="highlight-text">DogePumpFun leverages innovation and Solana's blockchain to stabilize Dogecoin and offer rewards through staking and liquidity pools.</p>
-            <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
-        </section>
+            <p>Tokens Sold: <strong>1,000,000 / 2,000,000</strong></p>
+            <p>Current Price: <strong>$0.00002</strong></p>
+            <p>Listing Price: <strong>$0.0001</strong></p>
 
-        <!-- Presale Section -->
-        <section id="presale">
-            <section class="css-ciney6">
-                <div class="css-tkfme3">
-                    <h2>BUY DLUME TOKENS</h2>
-                    <p>Power the Future of Gaming & Metaverse</p>
-                    <div>
-                        <p><strong>BUY DLUME COIN</strong></p>
-                        <div>
-                            <p><span id="days">12</span> Days</p>
-                            <p><span id="hours">18</span> Hours</p>
-                            <p><span id="minutes">08</span> Minutes</p>
-                            <p><span id="seconds">13</span> Seconds</p>
-                        </div>
-                    </div>
-                    <p>Next price increase by 18.2%</p>
-                    <p>2,598,917 / 3,200,000</p>
-                    <p>Current Price = $0.0011</p>
-                    <p>Listing Price = $0.005</p>
-                    <p>400%</p>
-                    <h3>Select a payment method</h3>
-                    <div>
-                        <button>ETH</button>
-                        <button>BNB</button>
-                        <button>MATIC</button>
-                        <button>USDC</button>
-                    </div>
-                    <p>How to Buy Aureal One Tokens?</p>
-                    <button>Connect Wallet</button>
-                    <button>Login with Gmail</button>
-                    <p>DLUME Token : [0xe161...01dd]</p>
-                    <p>[Do not send funds to this address]</p>
-                </div>
-            </section>
-        </section>
+            <!-- Wallet Selection -->
+            <h3>Connect a wallet:</h3>
+            <button onclick="connectSolanaWallet()">Connect Solana Wallet (Phantom/Solflare)</button>
+            <button onclick="connectEVMWallet()">Connect EVM Wallet (MetaMask/Coinbase/Trust Wallet)</button>
+            <p id="wallet-address">Wallet not connected.</p>
 
-        <!-- Airdrop Section -->
-        <section id="airdrop">
-            <h2>Airdrop Campaign</h2>
-            <div class="airdrop-form-container">
-                <form id="airdrop-form" onsubmit="sendEmail(event)">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-                    <label for="telegram">Telegram Username:</label>
-                    <input
+            <!-- Payment Section -->
+            <div id="payment-section">
+                <h3>Enter the amount to pay in SOL:</h3>
+                <input type="number" id="amount-to-pay" placeholder="Amount in SOL" />
+                <button onclick="sendSolanaPayment()">Send Payment</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
