@@ -1,87 +1,15 @@
-<!DOCTYPE<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DogePumpFun - Official Website</title>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/@solana/web3.js/1.76.0/web3.min.js"></script>
     <script>
         // Initialize EmailJS
         (function() {
             emailjs.init("F21yNHB-KBjU3fCpG"); // Public Key (user_id)
         })();
-
-        const presaleEndDate = new Date();
-        presaleEndDate.setDate(presaleEndDate.getDate() + 60); // Presale for 60 days
-        const presaleWalletAddress = "BXqvxJo65Z1yCiZPwmMxsdbzCNWzk56zf7TUVCtt2BtS";
-        let connectedWallet = "";
-
-        function updateCountdown() {
-            const now = new Date();
-            const remainingTime = presaleEndDate - now;
-
-            if (remainingTime <= 0) {
-                document.getElementById("countdown").innerText = "Presale has ended!";
-                return;
-            }
-
-            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerText = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        async function connectWallet() {
-            if (window.solana && (window.solana.isPhantom || window.solana.isSolflare)) {
-                try {
-                    const response = await window.solana.connect();
-                    connectedWallet = response.publicKey.toString();
-                    document.getElementById("wallet-status").innerText = `Connected Wallet: ${connectedWallet}`;
-                    alert("Wallet connected successfully!");
-                } catch (error) {
-                    console.error("Wallet connection failed:", error);
-                    alert("Failed to connect wallet. Please try again.");
-                }
-            } else {
-                alert("No Solana wallet detected. Please install Phantom or Solflare!");
-            }
-        }
-
-        async function sendPayment() {
-            if (!connectedWallet) {
-                alert("Please connect your wallet first.");
-                return;
-            }
-
-            const amountInSOL = parseFloat(document.getElementById("amount-to-pay").value);
-            if (isNaN(amountInSOL) || amountInSOL <= 0) {
-                alert("Please enter a valid amount in SOL.");
-                return;
-            }
-
-            try {
-                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
-                const transaction = new solanaWeb3.Transaction().add(
-                    solanaWeb3.SystemProgram.transfer({
-                        fromPubkey: window.solana.publicKey,
-                        toPubkey: new solanaWeb3.PublicKey(presaleWalletAddress),
-                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL
-                    })
-                );
-
-                const { signature } = await window.solana.signAndSendTransaction(transaction);
-                alert(`Payment sent successfully! Transaction ID: ${signature}`);
-            } catch (error) {
-                console.error("Payment failed:", error);
-                alert("Payment failed. Please try again.");
-            }
-        }
 
         function sendEmail(event) {
             event.preventDefault();
@@ -96,6 +24,7 @@
                 tweetLink: document.getElementById("tweet-link").value
             };
 
+            // Send email using EmailJS
             emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
                 .then(() => {
                     alert("Airdrop request submitted successfully!");
@@ -104,6 +33,15 @@
                     console.error("Error sending email:", error);
                     alert("Failed to submit the airdrop request. Please try again.");
                 });
+        }
+
+        function copyToClipboard() {
+            const address = document.getElementById('wallet-address').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                alert('Wallet address copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy address:', err);
+            });
         }
 
         function toggleWhitePaper() {
@@ -132,11 +70,81 @@
             font-weight: bold;
         }
 
+        h2, h3 {
+            font-size: 1.6rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4caf50;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #ff66cc;
+        }
+
         section {
             margin-bottom: 40px;
             background-color: rgba(26, 26, 26, 0.5);
             padding: 20px;
             border-radius: 12px;
+        }
+
+        button, .white-paper-btn, .navbar button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        button:hover, .white-paper-btn:hover, .navbar button:hover {
+            background-color: #ff66cc;
+        }
+
+        .submit-btn {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        form input, form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        form input:focus {
+            outline: none;
+            border: 2px solid #4caf50;
         }
 
         .navbar {
@@ -150,6 +158,34 @@
             border-bottom: 1px solid #333;
         }
 
+        #social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #social-links img {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+        }
+
+        #social-links a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        #social-links a:hover {
+            color: #ff66cc;
+        }
+
+        .highlight-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px auto;
+            color: #fff;
+        }
+
         .airdrop-form-container {
             display: flex;
             justify-content: center;
@@ -161,6 +197,33 @@
             border-radius: 10px;
             max-width: 500px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .navbar button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            form input, form button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .airdrop-form-container {
+                padding: 15px;
+                width: 90%;
+            }
+
+            section {
+                text-align: center;
+            }
+
+            #social-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -183,14 +246,16 @@
 
         <!-- Presale Section -->
         <section id="presale">
-            <h2>Join the Presale</h2>
-            <p>Current Price: <strong>$0.00002</strong></p>
-            <p>Listing Price: <strong>$0.0001</strong></p>
-            <p id="countdown" class="countdown">Loading countdown...</p>
-            <input type="number" id="amount-to-pay" placeholder="Enter amount in SOL">
-            <div id="wallet-status">Wallet not connected.</div>
-            <button class="btn" onclick="connectWallet()">Connect Wallet</button>
-            <button class="btn" onclick="sendPayment()">Pay Now</button>
+            <h2>Presale</h2>
+            <p class="presale-info">Join the presale to acquire DogePumpFun tokens at a discounted rate. Early investors gain exclusive benefits, staking rewards, and access to a growing ecosystem.</p>
+            <ul class="presale-info">
+                <li><strong>Presale Wallet:</strong>
+                    <code id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code>
+                    <button onclick="copyToClipboard()">Copy Wallet Address</button>
+                </li>
+                <li><strong>Price per token:</strong> 0.01 SOL</li>
+                <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
+            </ul>
         </section>
 
         <!-- Airdrop Section -->
@@ -234,3 +299,21 @@
                     <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
                 </div>
                 <!-- Telegram -->
+                <div style="text-align: center;">
+                    <a href="https://t.me/dogepumpfan" target="_blank">
+                        <img src="telegram-icon.png" alt="Telegram">
+                    </a>
+                    <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
+                </div>
+                <!-- Discord -->
+                <div style="text-align: center;">
+                    <a href="https://discord.gg/eCFFyEsp" target="_blank">
+                        <img src="discord-icon.png" alt="Discord">
+                    </a>
+                    <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
