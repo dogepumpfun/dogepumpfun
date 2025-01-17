@@ -1,22 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogePumpFun - Multi-Wallet Support</title>
+    <title>DogePumpFun - Official Website</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/@solana/web3.js/1.76.0/web3.min.js"></script>
     <script>
-        // Adresa pentru primirea plăților în Solana
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("F21yNHB-KBjU3fCpG");
+        })();
+
+        // Solana payment address
         const solanaPaymentAddress = "BXqvxJo65Z1yCiZPwmMxsdbzCNWzk56zf7TUVCtt2BtS";
 
-        // Conectare Phantom și Solflare (Solana Wallets)
+        // Connect Solana Wallet
         async function connectSolanaWallet() {
             if (window.solana) {
                 try {
                     const response = await window.solana.connect();
                     const walletAddress = response.publicKey.toString();
-                    document.getElementById("wallet-address").textContent = Connected Solana Wallet: ${walletAddress};
+                    document.getElementById("wallet-address").textContent = `Connected Solana Wallet: ${walletAddress}`;
                     alert("Solana wallet connected successfully!");
                 } catch (error) {
                     console.error("Wallet connection rejected:", error);
@@ -27,13 +32,13 @@
             }
         }
 
-        // Conectare MetaMask (compatibil cu Coinbase și Trust Wallet pe EVM)
+        // Connect EVM Wallet
         async function connectEVMWallet() {
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const walletAddress = accounts[0];
-                    document.getElementById("wallet-address").textContent = Connected EVM Wallet: ${walletAddress};
+                    document.getElementById("wallet-address").textContent = `Connected EVM Wallet: ${walletAddress}`;
                     alert("Ethereum-compatible wallet connected successfully!");
                 } catch (error) {
                     console.error("EVM Wallet connection rejected:", error);
@@ -44,7 +49,7 @@
             }
         }
 
-        // Trimiterea unei plăți reale în Solana
+        // Send Solana Payment
         async function sendSolanaPayment() {
             if (!window.solana || !window.solana.isConnected) {
                 alert("Please connect your Solana wallet first!");
@@ -66,17 +71,45 @@
                     solanaWeb3.SystemProgram.transfer({
                         fromPubkey: fromWallet,
                         toPubkey: toWallet,
-                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL, // Convert SOL în lamports
+                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL,
                     })
                 );
 
                 const signature = await window.solana.signAndSendTransaction(transaction);
-                alert(Transaction sent successfully! Signature: ${signature});
+                alert(`Transaction sent successfully! Signature: ${signature}`);
                 console.log("Transaction signature:", signature);
             } catch (error) {
                 console.error("Transaction failed:", error);
                 alert("Transaction failed. Please try again.");
             }
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+
+            // Collect values from the form
+            const params = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                telegram: document.getElementById("telegram").value,
+                wallet: document.getElementById("wallet").value,
+                twitterUsername: document.getElementById("twitter-username").value,
+                tweetLink: document.getElementById("tweet-link").value
+            };
+
+            emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
+                .then(() => {
+                    alert("Airdrop request submitted successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error sending email:", error);
+                    alert("Failed to submit the airdrop request. Please try again.");
+                });
+        }
+
+        function toggleWhitePaper() {
+            const whitePaper = document.getElementById("white-paper-view");
+            whitePaper.style.display = whitePaper.style.display === "none" ? "block" : "none";
         }
     </script>
     <style>
@@ -91,7 +124,6 @@
             background-repeat: no-repeat;
             color: #e0e0e0;
             line-height: 1.6;
-            filter: brightness(1.1);
         }
 
         .buy-section {
@@ -138,9 +170,48 @@
             width: 50%;
             text-align: center;
         }
+
+        section {
+            margin-bottom: 40px;
+            background-color: rgba(26, 26, 26, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .airdrop-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <button onclick="toggleWhitePaper()">View White Paper</button>
+        <button onclick="location.href='#buy-dogepumpfan'">Buy Tokens</button>
+        <button onclick="location.href='#airdrop'">Airdrop</button>
+        <button onclick="location.href='#social-links'">Follow Us</button>
+    </div>
+
     <!-- Section: Buy DogePumpFun -->
     <section id="buy-dogepumpfan" class="buy-section">
         <div class="content-wrapper">
@@ -162,6 +233,63 @@
                 <h3>Enter the amount to pay in SOL:</h3>
                 <input type="number" id="amount-to-pay" placeholder="Amount in SOL" />
                 <button onclick="sendSolanaPayment()">Send Payment</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airdrop Section -->
+    <section id="airdrop">
+        <h2>Airdrop Campaign</h2>
+        <div class="airdrop-form-container">
+            <form id="airdrop-form" onsubmit="sendEmail(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+                <label for="telegram">Telegram Username:</label>
+                <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
+
+                <label for="wallet">Solana Wallet Address:</label>
+                <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+
+                <label for="twitter-username">Twitter Username:</label>
+                <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+
+                <label for="tweet-link">Link to Your Tweet:</label>
+                <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Social Links Section -->
+    <section id="social-links">
+        <h2>Follow Us</h2>
+        <p class="social-description">Stay updated by following us on our social media platforms:</p>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; align-items: center;">
+            <!-- Twitter -->
+            <div style="text-align: center;">
+                <a href="https://twitter.com/dogepumpfan" target="_blank">
+                    <img src="twitter-icon.png" alt="Twitter">
+                </a>
+                <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
+            </div>
+            <!-- Telegram -->
+            <div style="text-align: center;">
+                <a href="https://t.me/dogepumpfan" target="_blank">
+                    <img src="telegram-icon.png" alt="Telegram">
+                </a>
+                <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
+            </div>
+            <!-- Discord -->
+            <div style="text-align: center;">
+                <a href="https://discord.gg/eCFFyEsp" target="_blank">
+                    <img src="discord-icon.png" alt="Discord">
+                </a>
+                <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
             </div>
         </div>
     </section>
