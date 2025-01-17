@@ -126,6 +126,17 @@
             line-height: 1.6;
         }
 
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
         .buy-section {
             background: rgba(26, 26, 26, 0.9);
             color: #e0e0e0;
@@ -171,24 +182,6 @@
             text-align: center;
         }
 
-        section {
-            margin-bottom: 40px;
-            background-color: rgba(26, 26, 26, 0.5);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .navbar {
-            background-color: rgba(26, 26, 26, 0.9);
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-
         .airdrop-form-container {
             display: flex;
             justify-content: center;
@@ -211,6 +204,13 @@
         <button onclick="location.href='#airdrop'">Airdrop</button>
         <button onclick="location.href='#social-links'">Follow Us</button>
     </div>
+
+    <!-- White Paper Section -->
+    <section id="white-paper">
+        <h1>DogePumpFun</h1>
+        <p class="highlight-text">DogePumpFun leverages innovation and Solana's blockchain to stabilize Dogecoin and offer rewards through staking and liquidity pools.</p>
+        <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
+    </section>
 
     <!-- Section: Buy DogePumpFun -->
     <section id="buy-dogepumpfan" class="buy-section">
@@ -285,13 +285,4 @@
                 <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
             </div>
             <!-- Discord -->
-            <div style="text-align: center;">
-                <a href="https://discord.gg/eCFFyEsp" target="_blank">
-                    <img src="discord-icon.png" alt="Discord">
-                </a>
-                <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
-            </div>
-        </div>
-    </section>
-</body>
-</html>
+           
