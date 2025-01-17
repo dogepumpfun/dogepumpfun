@@ -3,29 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DogePumpFun - Blockchain solution for stabilizing Dogecoin with rewards from staking and liquidity.">
+    <meta name="keywords" content="DogePumpFun, Dogecoin, Solana, staking, airdrop, cryptocurrency">
+    <meta name="author" content="DogePumpFun Team">
     <title>DogePumpFun - Official Website</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/@solana/web3.js/1.76.0/web3.min.js"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS
-        (function() {
-            emailjs.init("F21yNHB-KBjU3fCpG"); // Public Key (user_id)
+        (function () {
+            emailjs.init("F21yNHB-KBjU3fCpG");
         })();
 
-        function sendEmail(event) {
+        const solanaPaymentAddress = "BXqvxJo65Z1yCiZPwmMxsdbzCNWzk56zf7TUVCtt2BtS";
+        let connectedWalletAddress = "";
+
+        async function connectSolanaWallet() {
+            if (window.solana && (window.solana.isPhantom || window.solana.isSolflare)) {
+                try {
+                    const response = await window.solana.connect();
+                    connectedWalletAddress = response.publicKey.toString();
+                    document.getElementById("wallet-address").textContent = `Connected Wallet: ${connectedWalletAddress}`;
+                    alert("Solana wallet connected successfully!");
+                } catch (error) {
+                    console.error("Wallet connection rejected:", error);
+                    alert("Failed to connect Solana wallet. Please try again.");
+                }
+            } else {
+                alert("No Solana wallet detected. Please install Phantom or Solflare!");
+            }
+        }
+
+        async function sendSolanaPayment() {
+            if (!window.solana || !window.solana.isConnected) {
+                alert("Please connect your Solana wallet first!");
+                return;
+            }
+
+            try {
+                const amountInSOL = parseFloat(document.getElementById("amount-to-pay").value);
+                if (isNaN(amountInSOL) || amountInSOL <= 0) {
+                    alert("Please enter a valid amount in SOL.");
+                    return;
+                }
+
+                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
+                const fromWallet = window.solana.publicKey;
+                const toWallet = new solanaWeb3.PublicKey(solanaPaymentAddress);
+
+                const transaction = new solanaWeb3.Transaction().add(
+                    solanaWeb3.SystemProgram.transfer({
+                        fromPubkey: fromWallet,
+                        toPubkey: toWallet,
+                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL,
+                    })
+                );
+
+                const signature = await window.solana.signAndSendTransaction(transaction);
+                alert(`Transaction sent successfully! Signature: ${signature}`);
+                console.log("Transaction signature:", signature);
+            } catch (error) {
+                console.error("Transaction failed:", error);
+                alert("Transaction failed. Please try again.");
+            }
+        }
+
+        function sendAirdropForm(event) {
             event.preventDefault();
 
-            // Collect values from the form
             const params = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                telegram: document.getElementById("telegram").value,
-                wallet: document.getElementById("wallet").value,
-                twitterUsername: document.getElementById("twitter-username").value,
-                tweetLink: document.getElementById("tweet-link").value
+                name: document.getElementById("airdrop-name").value,
+                email: document.getElementById("airdrop-email").value,
+                telegram: document.getElementById("airdrop-telegram").value,
+                wallet: document.getElementById("airdrop-wallet").value,
+                twitter: document.getElementById("airdrop-twitter").value,
+                tweet: document.getElementById("airdrop-tweet").value
             };
 
-            // Send email using EmailJS
-            emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
+            emailjs
+                .send("service_rmhlyi4", "template_2k2m0wn", params)
                 .then(() => {
                     alert("Airdrop request submitted successfully!");
                 })
@@ -33,20 +88,6 @@
                     console.error("Error sending email:", error);
                     alert("Failed to submit the airdrop request. Please try again.");
                 });
-        }
-
-        function copyToClipboard() {
-            const address = document.getElementById('wallet-address').innerText;
-            navigator.clipboard.writeText(address).then(() => {
-                alert('Wallet address copied to clipboard!');
-            }).catch(err => {
-                alert('Failed to copy address:', err);
-            });
-        }
-
-        function toggleWhitePaper() {
-            const whitePaper = document.getElementById("white-paper-view");
-            whitePaper.style.display = whitePaper.style.display === "none" ? "block" : "none";
         }
     </script>
     <style>
@@ -70,10 +111,6 @@
             font-weight: bold;
         }
 
-        h2, h3 {
-            font-size: 1.6rem;
-        }
-
         a {
             text-decoration: none;
             color: #4caf50;
@@ -91,7 +128,7 @@
             border-radius: 12px;
         }
 
-        button, .white-paper-btn, .navbar button {
+        button {
             display: inline-block;
             margin: 10px;
             padding: 12px 24px;
@@ -103,26 +140,10 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
-            text-align: center;
         }
 
-        button:hover, .white-paper-btn:hover, .navbar button:hover {
+        button:hover {
             background-color: #ff66cc;
-        }
-
-        .submit-btn {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #45a049;
         }
 
         form label {
@@ -131,7 +152,7 @@
             font-weight: bold;
         }
 
-        form input, form button {
+        form input {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -145,45 +166,6 @@
         form input:focus {
             outline: none;
             border: 2px solid #4caf50;
-        }
-
-        .navbar {
-            background-color: rgba(26, 26, 26, 0.9);
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-
-        #social-links {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #social-links img {
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-        }
-
-        #social-links a {
-            color: #4caf50;
-            text-decoration: none;
-        }
-
-        #social-links a:hover {
-            color: #ff66cc;
-        }
-
-        .highlight-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 20px auto;
-            color: #fff;
         }
 
         .airdrop-form-container {
@@ -200,12 +182,7 @@
         }
 
         @media (max-width: 768px) {
-            .navbar button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-
-            form input, form button {
+            form input {
                 font-size: 14px;
                 padding: 8px;
             }
@@ -214,21 +191,10 @@
                 padding: 15px;
                 width: 90%;
             }
-
-            section {
-                text-align: center;
-            }
-
-            #social-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <div class="navbar">
         <button onclick="toggleWhitePaper()">View White Paper</button>
         <button onclick="location.href='#presale'">Presale</button>
@@ -237,84 +203,58 @@
     </div>
 
     <div>
-        <!-- White Paper Section -->
         <section id="white-paper">
             <h1>DogePumpFun</h1>
-            <p class="highlight-text">DogePumpFun leverages innovation and Solana's blockchain to stabilize Dogecoin and offer rewards through staking and liquidity pools.</p>
-            <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
+            <p class="highlight-text">DogePumpFun uses the Solana blockchain to stabilize Dogecoin and provides rewards through staking and liquidity.</p>
+            <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none; width: 100%; height: 600px;"></iframe>
         </section>
 
-        <!-- Presale Section -->
         <section id="presale">
             <h2>Presale</h2>
-            <p class="presale-info">Join the presale to acquire DogePumpFun tokens at a discounted rate. Early investors gain exclusive benefits, staking rewards, and access to a growing ecosystem.</p>
-            <ul class="presale-info">
-                <li><strong>Presale Wallet:</strong>
-                    <code id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code>
-                    <button onclick="copyToClipboard()">Copy Wallet Address</button>
-                </li>
-                <li><strong>Price per token:</strong> 0.01 SOL</li>
-                <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
-            </ul>
+            <div class="input-group">
+                <input type="number" id="amount-to-pay" placeholder="Amount in SOL">
+                <button onclick="sendSolanaPayment()">Pay Now</button>
+            </div>
+            <p id="wallet-address">Wallet not connected.</p>
+            <button onclick="connectSolanaWallet()">Connect Wallet</button>
         </section>
 
-        <!-- Airdrop Section -->
         <section id="airdrop">
             <h2>Airdrop Campaign</h2>
             <div class="airdrop-form-container">
-                <form id="airdrop-form" onsubmit="sendEmail(event)">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <form id="airdrop-form" onsubmit="sendAirdropForm(event)">
+                    <label for="airdrop-name">Name:</label>
+                    <input type="text" id="airdrop-name" placeholder="Your Name" required>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <label for="airdrop-email">Email:</label>
+                    <input type="email" id="airdrop-email" placeholder="Your Email" required>
 
-                    <label for="telegram">Telegram Username:</label>
-                    <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
+                    <label for="airdrop-wallet">Solana Wallet Address:</label>
+                    <input type="text" id="airdrop-wallet" placeholder="Your Wallet Address" required>
 
-                    <label for="wallet">Solana Wallet Address:</label>
-                    <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
+                    <label for="airdrop-telegram">Telegram Username:</label>
+                    <input type="text" id="airdrop-telegram" placeholder="@YourTelegramUsername" required>
 
-                    <label for="twitter-username">Twitter Username:</label>
-                    <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
+                    <label for="airdrop-twitter">Twitter Username:</label>
+                    <input type="text" id="airdrop-twitter" placeholder="@YourTwitterUsername" required>
 
-                    <label for="tweet-link">Link to Your Tweet:</label>
-                    <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
+                    <label for="airdrop-tweet">Tweet Link:</label>
+                    <input type="url" id="airdrop-tweet" placeholder="Link to your tweet with 3 tagged friends" required>
 
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </section>
 
-        <!-- Social Links Section -->
         <section id="social-links">
             <h2>Follow Us</h2>
-            <p class="social-description">Stay updated by following us on our social media platforms:</p>
-            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; align-items: center;">
-                <!-- Twitter -->
-                <div style="text-align: center;">
-                    <a href="https://twitter.com/dogepumpfan" target="_blank">
-                        <img src="twitter-icon.png" alt="Twitter">
-                    </a>
-                    <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
-                </div>
-                <!-- Telegram -->
-                <div style="text-align: center;">
-                    <a href="https://t.me/dogepumpfan" target="_blank">
-                        <img src="telegram-icon.png" alt="Telegram">
-                    </a>
-                    <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
-                </div>
-                <!-- Discord -->
-                <div style="text-align: center;">
-                    <a href="https://discord.gg/eCFFyEsp" target="_blank">
-                        <img src="discord-icon.png" alt="Discord">
-                    </a>
-                    <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
-                </div>
+            <p>Stay updated by following us on our social media channels:</p>
+            <div style="text-align: center;">
+                <a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a>
+                <a href="https://t.me/dogepumpfan" target="_blank">Telegram</a>
+                <a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a>
             </div>
         </section>
     </div>
 </body>
 </html>
-
