@@ -14,7 +14,6 @@
         function sendEmail(event) {
             event.preventDefault();
 
-            // Collect values from the form
             const params = {
                 name: document.getElementById("name").value,
                 email: document.getElementById("email").value,
@@ -24,7 +23,6 @@
                 tweetLink: document.getElementById("tweet-link").value
             };
 
-            // Send email using EmailJS
             emailjs.send("service_rmhlyi4", "template_2k2m0wn", params)
                 .then(() => {
                     alert("Airdrop request submitted successfully!");
@@ -48,6 +46,43 @@
             const whitePaper = document.getElementById("white-paper-view");
             whitePaper.style.display = whitePaper.style.display === "none" ? "block" : "none";
         }
+
+        // Countdown Timer for 60 Days
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + 60);
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+
+            if (distance > 0) {
+                document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").textContent = Math.floor((distance % (1000 * 60)) / 1000);
+            } else {
+                document.querySelector(".timer").innerHTML = "Sale has ended!";
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+
+        // Copy Wallet Address to Clipboard
+        function copyWallet() {
+            const walletAddress = document.getElementById("wallet-address").textContent;
+            navigator.clipboard.writeText(walletAddress).then(() => {
+                alert("Wallet address copied to clipboard!");
+            }).catch((err) => {
+                alert("Failed to copy wallet address: " + err);
+            });
+        }
+
+        // Conversion Logic
+        function calculateTokens() {
+            const ethToTokenRate = 5000; // Example rate: 1 ETH = 5000 DogePumpFun tokens
+            const ethValue = parseFloat(document.getElementById("pay-amount").value) || 0;
+            document.getElementById("get-amount").value = ethValue * ethToTokenRate;
+        }
     </script>
     <style>
         body {
@@ -70,20 +105,6 @@
             font-weight: bold;
         }
 
-        h2, h3 {
-            font-size: 1.6rem;
-        }
-
-        a {
-            text-decoration: none;
-            color: #4caf50;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #ff66cc;
-        }
-
         section {
             margin-bottom: 40px;
             background-color: rgba(26, 26, 26, 0.5);
@@ -91,9 +112,7 @@
             border-radius: 12px;
         }
 
-        button, .white-paper-btn, .navbar button {
-            display: inline-block;
-            margin: 10px;
+        button {
             padding: 12px 24px;
             font-size: 18px;
             font-weight: bold;
@@ -103,217 +122,120 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
-            text-align: center;
         }
 
-        button:hover, .white-paper-btn:hover, .navbar button:hover {
+        button:hover {
             background-color: #ff66cc;
         }
 
-        .submit-btn {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-
-        form label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        form input, form button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-            font-size: 14px;
-        }
-
-        form input:focus {
-            outline: none;
-            border: 2px solid #4caf50;
-        }
-
-        .navbar {
-            background-color: rgba(26, 26, 26, 0.9);
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-
-        #social-links {
+        .buy-section {
+            background: rgba(26, 26, 26, 0.9);
+            color: #e0e0e0;
             text-align: center;
-            margin-top: 20px;
-        }
-
-        #social-links img {
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-        }
-
-        #social-links a {
-            color: #4caf50;
-            text-decoration: none;
-        }
-
-        #social-links a:hover {
-            color: #ff66cc;
-        }
-
-        .highlight-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
+            padding: 40px 20px;
+            border-radius: 12px;
             margin: 20px auto;
-            color: #fff;
-        }
-
-        .airdrop-form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(26, 26, 26, 0.5);
-            border-radius: 10px;
-            max-width: 500px;
+            max-width: 800px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        @media (max-width: 768px) {
-            .navbar button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+        .buy-section h2 {
+            font-size: 2.2rem;
+            color: #ff66cc;
+            margin-bottom: 15px;
+        }
 
-            form input, form button {
-                font-size: 14px;
-                padding: 8px;
-            }
+        .buy-section .timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
 
-            .airdrop-form-container {
-                padding: 15px;
-                width: 90%;
-            }
+        .buy-section .timer div {
+            background: #333;
+            padding: 10px;
+            border-radius: 8px;
+            width: 80px;
+            text-align: center;
+        }
 
-            section {
-                text-align: center;
-            }
+        .buy-section .timer span {
+            font-size: 2rem;
+            display: block;
+            color: #4caf50;
+        }
 
-            #social-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+        .buy-section button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .buy-section button:hover {
+            background: #ff66cc;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <button onclick="toggleWhitePaper()">View White Paper</button>
-        <button onclick="location.href='#presale'">Presale</button>
-        <button onclick="location.href='#airdrop'">Airdrop</button>
-        <button onclick="location.href='#social-links'">Follow Us</button>
-    </div>
+    <!-- Existing Content -->
 
-    <div>
-        <!-- White Paper Section -->
-        <section id="white-paper">
-            <h1>DogePumpFun</h1>
-            <p class="highlight-text">DogePumpFun leverages innovation and Solana's blockchain to stabilize Dogecoin and offer rewards through staking and liquidity pools.</p>
-            <iframe id="white-paper-view" src="DogePumpFun-WhitePaper-Viewable.pdf" style="display: none;"></iframe>
-        </section>
+    <!-- New Section: Buy DogePumpFun -->
+    <section id="buy-dogepumpfan" class="buy-section">
+        <div class="content-wrapper">
+            <h2>Buy DogePumpFun Tokens</h2>
+            <p>Power the Future of Decentralized Gaming and Rewards!</p>
 
-        <!-- Presale Section -->
-        <section id="presale">
-            <h2>Presale</h2>
-            <p class="presale-info">Join the presale to acquire DogePumpFun tokens at a discounted rate. Early investors gain exclusive benefits, staking rewards, and access to a growing ecosystem.</p>
-            <ul class="presale-info">
-                <li><strong>Presale Wallet:</strong>
-                    <code id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</code>
-                    <button onclick="copyToClipboard()">Copy Wallet Address</button>
-                </li>
-                <li><strong>Price per token:</strong> 0.01 SOL</li>
-                <li><strong>Minimum Purchase:</strong> 100 tokens (1 SOL)</li>
-            </ul>
-        </section>
-
-        <!-- Airdrop Section -->
-        <section id="airdrop">
-            <h2>Airdrop Campaign</h2>
-            <div class="airdrop-form-container">
-                <form id="airdrop-form" onsubmit="sendEmail(event)">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-                    <label for="telegram">Telegram Username:</label>
-                    <input type="text" id="telegram" name="telegram" placeholder="@YourTelegram" required>
-
-                    <label for="wallet">Solana Wallet Address:</label>
-                    <input type="text" id="wallet" name="wallet" placeholder="Your Solana Wallet Address" required>
-
-                    <label for="twitter-username">Twitter Username:</label>
-                    <input type="text" id="twitter-username" name="twitter-username" placeholder="@YourTwitterHandle" required>
-
-                    <label for="tweet-link">Link to Your Tweet:</label>
-                    <input type="url" id="tweet-link" name="tweet-link" placeholder="Tweet Link with 3 tagged friends" required>
-
-                    <button type="submit" class="submit-btn">Submit</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Social Links Section -->
-        <section id="social-links">
-            <h2>Follow Us</h2>
-            <p class="social-description">Stay updated by following us on our social media platforms:</p>
-            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; align-items: center;">
-                <!-- Twitter -->
-                <div style="text-align: center;">
-                    <a href="https://twitter.com/dogepumpfan" target="_blank">
-                        <img src="twitter-icon.png" alt="Twitter">
-                    </a>
-                    <p><a href="https://twitter.com/dogepumpfan" target="_blank">Twitter</a></p>
+            <!-- Timer Section -->
+            <div class="timer">
+                <div>
+                    <span id="days">60</span>
+                    <small>Days</small>
                 </div>
-                <!-- Telegram -->
-                <div style="text-align: center;">
-                    <a href="https://t.me/dogepumpfan" target="_blank">
-                        <img src="telegram-icon.png" alt="Telegram">
-                    </a>
-                    <p><a href="https://t.me/dogepumpfan" target="_blank">Telegram</a></p>
+                <div>
+                    <span id="hours">00</span>
+                    <small>Hours</small>
                 </div>
-                <!-- Discord -->
-                <div style="text-align: center;">
-                    <a href="https://discord.gg/eCFFyEsp" target="_blank">
-                        <img src="discord-icon.png" alt="Discord">
-                    </a>
-                    <p><a href="https://discord.gg/eCFFyEsp" target="_blank">Discord</a></p>
+                <div>
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+                <div>
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
                 </div>
             </div>
-        </section>
-    </div>
+
+            <p>Next price increase by <strong>10%</strong></p>
+            <p>Tokens Sold: <strong>1,000,000 / 2,000,000</strong></p>
+            <p>Current Price: <strong>$0.002</strong></p>
+            <p>Listing Price: <strong>$0.01</strong></p>
+
+            <!-- Payment Method -->
+            <h3>Select a payment method</h3>
+            <div class="payment-methods">
+                <button>ETH</button>
+                <button>BNB</button>
+                <button>MATIC</button>
+                <button>SOL</button>
+            </div>
+
+            <!-- Conversion Section -->
+            <div>
+                <label for="pay-amount">You Pay</label>
+                <input type="number" id="pay-amount" placeholder="Enter amount in ETH" oninput="calculateTokens()" />
+                <label for="get-amount">You Get</label>
+                <input type="number" id="get-amount" readonly />
+            </div>
+
+            <!-- Wallet Info -->
+            <p><strong>DogePumpFun Token Wallet:</strong> <span id="wallet-address">DJ5eTsxRvN4ThefdJNM2am2CuunCmn8cKBqZGfiLohRo</span></p>
+            <button onclick="copyWallet()">Copy Wallet Address</button>
+            <small><em>Do not send funds to this address directly.</em></small>
+        </div>
+    </section>
 </body>
 </html>
