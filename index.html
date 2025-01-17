@@ -245,7 +245,7 @@
         </section>
 
         <!-- Presale Section -->
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -253,51 +253,44 @@
     <title>DogePumpFun - Multi-Wallet Support</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/@solana/web3.js/1.76.0/web3.min.js"></script>
     <script>
+        // Adresa pentru primirea plăților în Solana
         const solanaPaymentAddress = "BXqvxJo65Z1yCiZPwmMxsdbzCNWzk56zf7TUVCtt2BtS";
 
-        function detectWallets() {
-            let walletsDetected = [];
-            if (window.solana && window.solana.isPhantom) walletsDetected.push("Phantom");
-            if (window.solflare) walletsDetected.push("Solflare");
-
-            if (walletsDetected.length > 0) {
-                alert(`Detected wallets: ${walletsDetected.join(", ")}`);
-            } else {
-                alert("No compatible wallets detected. Please install Phantom or Solflare.");
-            }
-        }
-
-        async function connectPhantomWallet() {
-            if (window.solana && window.solana.isPhantom) {
+        // Conectare Phantom și Solflare (Solana Wallets)
+        async function connectSolanaWallet() {
+            if (window.solana) {
                 try {
                     const response = await window.solana.connect();
                     const walletAddress = response.publicKey.toString();
-                    document.getElementById("wallet-address").textContent = `Connected Phantom Wallet: ${walletAddress}`;
+                    document.getElementById("wallet-address").textContent = Connected Solana Wallet: ${walletAddress};
+                    alert("Solana wallet connected successfully!");
                 } catch (error) {
-                    alert("Failed to connect Phantom wallet.");
+                    console.error("Wallet connection rejected:", error);
+                    alert("Failed to connect Solana wallet. Please try again.");
                 }
             } else {
-                alert("Phantom Wallet not detected.");
+                alert("No Solana wallet detected. Please install Phantom or Solflare!");
             }
         }
 
-        async function connectSolflareWallet() {
-            if (window.solflare) {
+        // Conectare MetaMask (compatibil cu Coinbase și Trust Wallet pe EVM)
+        async function connectEVMWallet() {
+            if (window.ethereum) {
                 try {
-                    const solflare = new window.solflare.Wallet();
-                    const connected = await solflare.connect();
-                    if (connected) {
-                        const walletAddress = solflare.publicKey.toString();
-                        document.getElementById("wallet-address").textContent = `Connected Solflare Wallet: ${walletAddress}`;
-                    }
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const walletAddress = accounts[0];
+                    document.getElementById("wallet-address").textContent = Connected EVM Wallet: ${walletAddress};
+                    alert("Ethereum-compatible wallet connected successfully!");
                 } catch (error) {
-                    alert("Failed to connect Solflare wallet.");
+                    console.error("EVM Wallet connection rejected:", error);
+                    alert("Failed to connect EVM wallet. Please try again.");
                 }
             } else {
-                alert("Solflare Wallet not detected.");
+                alert("No Ethereum-compatible wallet detected. Please install MetaMask, Coinbase Wallet, or Trust Wallet!");
             }
         }
 
+        // Trimiterea unei plăți reale în Solana
         async function sendSolanaPayment() {
             if (!window.solana || !window.solana.isConnected) {
                 alert("Please connect your Solana wallet first!");
@@ -307,7 +300,7 @@
             try {
                 const amountInSOL = parseFloat(document.getElementById("amount-to-pay").value);
                 if (isNaN(amountInSOL) || amountInSOL <= 0) {
-                    alert("Enter a valid amount.");
+                    alert("Please enter a valid amount in SOL.");
                     return;
                 }
 
@@ -319,130 +312,139 @@
                     solanaWeb3.SystemProgram.transfer({
                         fromPubkey: fromWallet,
                         toPubkey: toWallet,
-                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL,
+                        lamports: amountInSOL * solanaWeb3.LAMPORTS_PER_SOL, // Convert SOL în lamports
                     })
                 );
 
                 const signature = await window.solana.signAndSendTransaction(transaction);
-                alert(`Transaction successful: ${signature}`);
+                alert(Transaction sent successfully! Signature: ${signature});
+                console.log("Transaction signature:", signature);
             } catch (error) {
-                alert("Transaction failed.");
+                console.error("Transaction failed:", error);
+                alert("Transaction failed. Please try again.");
             }
         }
     </script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #111;
-            color: #fff;
-            text-align: center;
             margin: 0;
             padding: 0;
+            background-image: url('extra-image1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #e0e0e0;
+            line-height: 1.6;
+            filter: brightness(1.1);
         }
 
-        .container {
+        .buy-section {
+            background: rgba(26, 26, 26, 0.9);
+            color: #e0e0e0;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin: 20px auto;
             max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        button {
+        .buy-section h2 {
+            font-size: 2.2rem;
+            color: #ff66cc;
+            margin-bottom: 15px;
+        }
+
+        .buy-section button {
             background: #4caf50;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
-            margin: 10px;
             cursor: pointer;
         }
 
-        button:hover {
-            background: #45a049;
+        .buy-section button:hover {
+            background: #ff66cc;
         }
 
-        .progress-bar-container {
-            background: #333;
-            border-radius: 20px;
-            width: 80%;
-            margin: 20px auto;
-            padding: 5px;
-        }
-
-        .progress-bar {
-            background: #4caf50;
-            height: 30px;
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            line-height: 30px;
-        }
-
-        .countdown {
-            font-size: 1.5rem;
+        .buy-section #wallet-address {
             margin-top: 20px;
+            font-weight: bold;
         }
 
-        input {
+        .buy-section input {
             padding: 10px;
-            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border-radius: 8px;
             border: none;
-            width: 200px;
+            width: 50%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>DogePumpFun Presale</h1>
-        <p>Power the Future of Decentralized Gaming and Rewards!</p>
+    <!-- Section: Buy DogePumpFun -->
+    <section id="Presale-dogepumpfan" class="buy-section">
+        <div class="content-wrapper">
+            <h2>Presale DogePumpFun </h2>
+            <p>Power the Future of Decentralized Gaming and Rewards!</p>
 
-        <div>
-            <button onclick="detectWallets()">Detect Wallets</button>
-            <button onclick="connectPhantomWallet()">Connect Phantom Wallet</button>
-            <button onclick="connectSolflareWallet()">Connect Solflare Wallet</button>
+            <p>Tokens Sold: <strong>1,000,000 / 2,000,000</strong></p>
+            <p>Current Price: <strong>$0.00002</strong></p>
+            <p>Listing Price: <strong>$0.0001</strong></p>
+
+            <!-- Wallet Selection -->
+            <h3>Connect a wallet:</h3>
+            <button onclick="connectSolanaWallet()">Connect Solana Wallet (Phantom/Solflare)</button>
+            <button onclick="connectEVMWallet()">Connect EVM Wallet (MetaMask/Coinbase/Trust Wallet)</button>
             <p id="wallet-address">Wallet not connected.</p>
-        </div>
 
-        <div>
-            <input type="number" id="amount-to-pay" placeholder="Amount in SOL">
-            <button onclick="sendSolanaPayment()">Send Payment</button>
-        </div>
-
-        <div class="progress-bar-container">
-            <div id="progress-bar" class="progress-bar" style="width: 50%;">50% Sold</div>
-        </div>
-
-        <div class="countdown">
-            <h3>Presale Ends In:</h3>
-            <div id="countdown-timer"></div>
-        </div>
+            <!-- Payment Section -->
+            <div id="payment-section">
+                <h3>Enter the amount to pay in SOL:</h3>
+                <input type="number" id="amount-to-pay" placeholder="Amount in SOL" />
+                <button onclick="sendSolanaPayment()">Send Payment</button>
+            </div>
+<!-- Progress Bar Section -->
+<div style="background: #333; border-radius: 20px; padding: 10px; width: 80%; margin: 20px auto;">
+    <div id="progress-bar" style="background: #4caf50; width: 50%; height: 30px; border-radius: 15px; text-align: center; color: white;">
+        11% Sold
     </div>
+</div>
+<script>
+    // Update the progress dynamically
+    const soldPercentage = 11; // Replace with a dynamic value if needed
+    document.getElementById("progress-bar").style.width = soldPercentage + "%";
+    document.getElementById("progress-bar").innerText = soldPercentage + "% Sold";
+</script>
+<!-- Timer Section -->
+<div style="text-align: center; margin: 20px auto; color: #e0e0e0;">
+    <h3>Presale Ends In:</h3>
+    <div id="countdown-timer" style="font-size: 1.5rem; font-weight: bold;"></div>
+</div>
+<script>
+    const countdownDate = new Date("2025-03-16T23:59:59").getTime(); // Replace with your presale end date
+    const countdownTimer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
 
-    <script>
-        const soldPercentage = 50;
-        document.getElementById("progress-bar").style.width = soldPercentage + "%";
-        document.getElementById("progress-bar").innerText = soldPercentage + "% Sold";
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        const countdownDate = new Date("2025-03-16T23:59:59").getTime();
-        const countdownTimer = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
+        document.getElementById("countdown-timer").innerText = 
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown-timer").textContent = 
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                document.getElementById("countdown-timer").textContent = "Presale Ended";
-            }
-        }, 1000)
-</body>
-</html>
-
+        if (distance < 0) {
+            clearInterval(countdownTimer);
+            document.getElementById("countdown-timer").innerText = "Presale Ended";
+        }
+    }, 1000);
 </script>
 
         </div>
